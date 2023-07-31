@@ -1,0 +1,33 @@
+
+<%- include("nav.ejs") %>
+    <div class="container">
+        <div class="box">
+
+        <% if(locals.date){ %>
+
+            <h1 id="date"><%= date %></h1>
+        
+        <% }else{ %>
+            <% var today = new Date(); %>
+            <h1 id="date"><%= today %></h1>
+        <%} %>
+        <h3 id="work-count"><%= item.length %> Work</h3>
+
+        <form action="/work" method="post">
+
+            <input type="text" class="txt-field" name="inpW" placeholder="New item">
+            <input type="submit" id="plus-icon" value="+">
+        </form>
+
+        <div class="work-list" id="checklist">
+
+            <% for(var i = 0;i<item.length;i++) { %>
+
+                <input value="<%= i %>" name="r" type="checkbox" id="0<%=i%>">
+                <label for="0<%=i%>"><%= item[i] %></label>
+            <% } %>
+
+        </div>
+    </div>
+
+<%- include("footer.ejs") %>
