@@ -1,11 +1,21 @@
 import express  from "express";
 import bodyParser from "body-parser"
+import mongoose from "mongoose";
 
 const app = express();
 const port = 3000;
+mongoose.connect("mongodb://localhost:27017/todoListDB");
 const todayWorkList = [];
 const WorkList = [];
 app.set('view engine', 'ejs')
+
+const itemSchema = {
+    name:String
+}
+const Item = mongoose.model("Item",itemSchema)
+
+
+
 
 
 var today = new Date();
@@ -16,32 +26,30 @@ var yyyy = today.getFullYear();
 today = dd + '/' + mm + '/' + yyyy;
 
 app.use(express.static("public"));
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({extended:true})); 
 
+ app.get('/',async (req,res) =>{
 
-app.get('/',(req,res) =>{
+    const items = await Item.find({});
     res.render("today",{
         date:today,
-        item :todayWorkList,
+        item:items
     });
 });
 
-app.post('/', (req, res) => {
+app.post('/', async (req, res) => {
 
-    todayWorkList.push(req.body["inp"]);
-
-    res.render("today",{
-        date:today,
-        item:todayWorkList
+    const item = new Item({
+        name:req.body['inp']
     });
+    item.save();     
+    res.redirect('/');
 
 });
 
 
 app.post('/work', (req, res) => {
-
-    
-    
+ 
     WorkList.push(req.body["inpW"]);
 
     res.render("work",{

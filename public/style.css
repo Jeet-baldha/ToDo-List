@@ -82,6 +82,7 @@ body{
 
 .work-list{
     margin-top: 18px;
+    width: max-content;
 }
 
 .footer{
@@ -123,9 +124,9 @@ body{
     cursor: pointer;
     display: grid;
     align-items: center;
-    /* width: fit-content; */
+    width: 100px;
     transition: color 0.3s ease;
-    margin-right: 20px;
+    /* margin-right: 20px; */
   }
   
   #checklist label::before, #checklist label::after {
