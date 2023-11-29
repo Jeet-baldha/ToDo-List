@@ -4,13 +4,14 @@ import mongoose from "mongoose";
 
 const app = express();
 const port = 3000;
-mongoose.connect("mongodb://localhost:27017/todoListDB");
+mongoose.connect("mongodb+srv://jeetbaldha26:Jeet1626@filmyhub.i9irue5.mongodb.net/ToDoListDB");
 const todayWorkList = [];
 const WorkList = [];
 app.set('view engine', 'ejs')
 
 const itemSchema = {
-    name:String
+    name:String,
+    reviews:Array
 }
 const Item = mongoose.model("Item",itemSchema)
 
